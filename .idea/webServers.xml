@@ -2,10 +2,10 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="0def2af1-d32e-48be-b9ee-0760c3d15666" name="utd" url="http://csgrads1.utdallas.edu">
-        <fileTransfer host="csgrads1.utdallas.edu" port="22" accessType="SFTP">
+      <webServer id="30ce610a-2cec-4089-ad55-2b4dd7578b95" name="utd" url="http://cslinux.utdallas.edu">
+        <fileTransfer host="cslinux.utdallas.edu" port="22" rootFolder="/home/011/y/yx/yxy160830" accessType="SFTP">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>
           <option name="port" value="22" />
         </fileTransfer>
