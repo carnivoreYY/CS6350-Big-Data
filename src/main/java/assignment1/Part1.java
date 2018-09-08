@@ -19,10 +19,9 @@ public class Part1 {
 
 
     public static void main(String[] args) {
-        System.out.println("Please input the directory on HDFS where the files to be stored.");
         Class1 c = new Class1();
-        c.setDir();
-        System.out.println("host is " + c.getDir());
+        c.setDir(args[0]);
+        System.out.println("directory is " + c.getDir());
         String dirDst = c.getDir();
         // files to be downloaded
         String[] books = {

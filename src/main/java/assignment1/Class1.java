@@ -9,11 +9,10 @@ public class Class1 {
     // Reading data using readLine
     private String dir;
 
-    public void setDir(){
-        Scanner in = new Scanner(System.in);
-        String host_ = in.nextLine();
+    public void setDir(String dir){
 
-        this.dir = host_;
+
+        this.dir = dir;
     }
     public String getDir() {
         return dir;
