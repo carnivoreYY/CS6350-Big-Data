@@ -47,10 +47,7 @@ public class Part1 extends Configured implements Tool {
 
         job.getConfiguration().setBoolean("wordcount.case.sensitive", false);
         job.getConfiguration().set("path.stopwords.file", args[2]);
-//        if (args.length > 2 && "-skip".equals(args[2])) {
-//            job.getConfiguration().set("path.stopwords.file", args[3]);
-//            LOG.info("Stopwords file path: " + args[3]);
-//        }
+        LOG.info("Stopwords file path: " + args[3]);
 
         job.setMapperClass(Map.class);
         job.setCombinerClass(Reduce.class);
