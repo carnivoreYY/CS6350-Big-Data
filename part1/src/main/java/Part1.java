@@ -6,8 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.io.File;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.util.Tool;
@@ -36,18 +38,30 @@ public class Part1 extends Configured implements Tool {
     public int run(String[] args) throws Exception {
         Job job = Job.getInstance(getConf(), "wordcount");
         job.setJarByClass(this.getClass());
-
-        List<String> lines = Files.readAllLines(Paths.get(args[0]), StandardCharsets.UTF_8);
-        // Use TextInputFormat, the default unless job.setInputFormatClass is used
-        for (String line: lines) {
-            if (!line.isEmpty())
-                FileInputFormat.addInputPath(job, new Path(line));
+        Path path = new Path(args[0]);
+        FileSystem fs = FileSystem.get(job.getConfiguration());
+        FileStatus[] status = fs.listStatus(path);
+        for(FileStatus file : status) {
+            if (!file.getPath().getName().endsWith(".txt")) {
+                continue;
+            } else {
+                Path curPath = new Path(args[0] + file.getPath().getName());
+                FileInputFormat.addInputPath(job, curPath);
+            }
         }
+
+
+//        List<String> lines = Files.readAllLines(Paths.get(args[0]), StandardCharsets.UTF_8);
+//        // Use TextInputFormat, the default unless job.setInputFormatClass is used
+//        for (String line: lines) {
+//            if (!line.isEmpty())
+//                FileInputFormat.addInputPath(job, new Path(line));
+//        }
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
         job.getConfiguration().setBoolean("wordcount.case.sensitive", false);
         job.getConfiguration().set("path.stopwords.file", args[2]);
-        LOG.info("Stopwords file path: " + args[3]);
+        LOG.info("Stopwords file path: " + args[2]);
 
         job.setMapperClass(Map.class);
         job.setCombinerClass(Reduce.class);
