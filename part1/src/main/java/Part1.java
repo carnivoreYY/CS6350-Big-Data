@@ -45,7 +45,7 @@ public class Part1 extends Configured implements Tool {
             if (!file.getPath().getName().endsWith(".txt")) {
                 continue;
             } else {
-                Path curPath = new Path(args[0] + file.getPath().getName());
+                Path curPath = new Path(args[0] + "/" + file.getPath().getName());
                 FileInputFormat.addInputPath(job, curPath);
             }
         }
