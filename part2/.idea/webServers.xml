@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="4b353c41-6f67-4db6-a215-e2072268af27" name="cslinux.utdallas.edu" url="http://cslinux.utdallas.edu">
-        <fileTransfer host="cslinux.utdallas.edu" port="22" accessType="SFTP">
+        <fileTransfer host="cslinux.utdallas.edu" port="22" rootFolder="/home/011/y/yx/yxy160830" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>

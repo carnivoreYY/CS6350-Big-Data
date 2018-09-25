@@ -11,15 +11,17 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
-import org.apache.log4j.Logger;
 
 import java.util.*;
 
 public class Part2 extends Configured implements Tool {
-    private static final Logger LOG = Logger.getLogger(Part2.class);
+    private static List<String> top20 = new ArrayList<>();
     
     public static void main(String[] args) throws Exception {
       int res = ToolRunner.run(new Part2(), args);
+      for (String message : top20) {
+        System.out.println(message);
+      }
       System.exit(res);
     }
 
@@ -82,19 +84,15 @@ public class Part2 extends Configured implements Tool {
           sortedMap.get(value).add(key);
         }
         int counter = 0;
-        boolean done = false;
         for (double key : sortedMap.descendingKeySet()) {
           List<Text> list = sortedMap.get(key);
           for (Text text : list) {
             context.write(text, new DoubleWritable(key));
             counter++;
-            if (counter == 20) {
-              done = true;
-              break;
+            if (counter <= 20) {
+              String message = text.toString() + ": " + key;
+              top20.add(message);
             }
-          }
-          if (done) {
-            break;
           }
         }
       }
